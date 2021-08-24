@@ -1,4 +1,6 @@
 using BottleShop.Services;
+using BottleShop.Storage;
+using BottleShop.Storage.Entities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -61,6 +63,10 @@ namespace BottleShop
 
 		private void RegisterBottleShopServices(IServiceCollection services)
 		{
+			services.AddAutoMapper(typeof(StorageMapperProfile));
+
+			services.AddScoped<IRepository<TrolleyEntity>, DocumentRepository<TrolleyEntity>>();
+
 			services.AddScoped<ITrolleyService, TrolleyService>();
 		}
 	}

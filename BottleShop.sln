@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BottleShop.Models", "Bottle
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BottleShop.Services", "BottleShop.Services\BottleShop.Services.csproj", "{BF8A613C-941A-40E4-AA74-E9555E71D210}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BottleShop.Storage", "BottleShop.Storage\BottleShop.Storage.csproj", "{18C1F76D-78A3-461A-B755-E3C6E4EF9043}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{BF8A613C-941A-40E4-AA74-E9555E71D210}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BF8A613C-941A-40E4-AA74-E9555E71D210}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BF8A613C-941A-40E4-AA74-E9555E71D210}.Release|Any CPU.Build.0 = Release|Any CPU
+		{18C1F76D-78A3-461A-B755-E3C6E4EF9043}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{18C1F76D-78A3-461A-B755-E3C6E4EF9043}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{18C1F76D-78A3-461A-B755-E3C6E4EF9043}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{18C1F76D-78A3-461A-B755-E3C6E4EF9043}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

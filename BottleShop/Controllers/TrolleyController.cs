@@ -20,26 +20,13 @@ namespace BottleShop.Controllers
 		}
 
 		[HttpGet]
-		public Trolley Get()
+		public async Task<Trolley> Get()
 		{
-			return new Trolley()
-			{
-				Products = new List<Product>()
-				{
-					new Product()
-					{
-						Id = 1,
-						Name = "Victoria Bitter",
-						Price = 21.49m,
-					},
-					new Product()
-					{
-						Id = 2,
-						Name = "Crown Lager",
-						Price = 22.99m
-					}
-				}
-			};
+			var customerId = string.Empty;
+
+			var result = await _trolleyService.GetCustomerTrolleyAsync(customerId);
+
+			return result;
 		}
 	}
 }

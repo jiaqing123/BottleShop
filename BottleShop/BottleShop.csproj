@@ -1,16 +1,20 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <UserSecretsId>922a9fea-58ee-450c-8440-2dbc23643ca0</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\BottleShop.Models\BottleShop.Models.csproj" />
     <ProjectReference Include="..\BottleShop.Services\BottleShop.Services.csproj" />
+    <ProjectReference Include="..\BottleShop.Storage\BottleShop.Storage.csproj" />
   </ItemGroup>
 
 </Project>
