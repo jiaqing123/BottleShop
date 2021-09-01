@@ -53,7 +53,7 @@ namespace BottleShop.Controllers
 			}
 			else
 			{
-				return Ok();
+				return Ok(result);
 			}
 		}
 

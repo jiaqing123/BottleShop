@@ -1,9 +1,13 @@
-﻿namespace BottleShop.Storage.Entities
+﻿using Newtonsoft.Json;
+
+namespace BottleShop.Storage.Entities
 {
 	public class TrolleyPromotionEntity
 	{
+		[JsonProperty("id")]
 		public string PromotionId { get; set; }
 
-		public decimal DiscountedAmount { get; set; }
+		[JsonProperty("a")]
+		public double DiscountedAmount { get; set; }
 	}
 }

@@ -13,11 +13,11 @@ namespace BottleShop.Storage
 			#region TrolleyTableEntity - TrolleyEntity
 
 			CreateMap<TrolleyTableEntity, TrolleyEntity>()
-				.ForMember(dest => dest.DiscountedTotal, opts => opts.MapFrom(src => src.DiscountedTotal ?? 0))
+				.ForMember(dest => dest.DiscountedTotal, opts => opts.MapFrom(src => src.DiscountedTotal))
 				.ForMember(dest => dest.ETag, opts => opts.MapFrom(src => src.ETag))
 				.ForMember(dest => dest.Products, opts => opts.MapFrom(src => GetTrolleyProductList(src)))
 				.ForMember(dest => dest.Promotions, opts => opts.MapFrom(src => StorageUtil.GetContentList<TrolleyPromotionEntity>(src.Promotions)))
-				.ForMember(dest => dest.Total, opts => opts.MapFrom(src => src.Total ?? 0))
+				.ForMember(dest => dest.Total, opts => opts.MapFrom(src => src.Total))
 				.ForMember(dest => dest.TrolleyId, opts => opts.MapFrom(src => src.PartitionKey))
 				.ForAllMembers(a => a.Condition((source, target, sourceValue, targetValue) => sourceValue != null));
 
@@ -27,7 +27,7 @@ namespace BottleShop.Storage
 				.ForMember(dest => dest.DiscountedTotal, opts => opts.MapFrom(src => src.DiscountedTotal))
 				.ForMember(dest => dest.ETag, opts => opts.MapFrom(src => src.ETag))
 				.ForMember(dest => dest.PartitionKey, opts => opts.MapFrom(src => src.TrolleyId))
-				.ForMember(dest => dest.Promotions, opts => opts.MapFrom(src => StorageUtil.GetContentString(src.Promotions)))
+				.ForMember(dest => dest.Promotions, opts =>  opts.MapFrom(src => StorageUtil.GetContentString(src.Promotions)))
 				.ForMember(dest => dest.Quantity, opts => opts.Ignore())
 				.ForMember(dest => dest.RowKey, opts => opts.MapFrom(src => StorageConstants.ROW_KEY_BASIC))
 				.ForMember(dest => dest.RowType, opts => opts.MapFrom(src => StorageConstants.ROW_TYPE_BASIC))
@@ -41,14 +41,14 @@ namespace BottleShop.Storage
 			#region TrolleyTableEntity - TrolleyProductEntity
 
 			CreateMap<TrolleyTableEntity, TrolleyProductEntity>()
-				.ForMember(dest => dest.DiscountedTotal, opts => opts.MapFrom(src => src.DiscountedTotal ?? 0))
+				.ForMember(dest => dest.DiscountedTotal, opts => opts.MapFrom(src => src.DiscountedTotal))
 				.ForMember(dest => dest.ETag, opts => opts.MapFrom(src => src.ETag))
 				.ForMember(dest => dest.ProductId, opts => opts.MapFrom(src => StorageUtil.GetIdFromRowKey(src.RowKey, StorageConstants.ROW_ID_PRODUCT)))
 				.ForMember(dest => dest.Promotions, opts => opts.MapFrom(src => StorageUtil.GetContentList<ProductPromotionEntity>(src.Promotions)))
-				.ForMember(dest => dest.Quantity, opts => opts.MapFrom(src => src.Quantity ?? 0))
-				.ForMember(dest => dest.Total, opts => opts.MapFrom(src => src.Total ?? 0))
+				.ForMember(dest => dest.Quantity, opts => opts.MapFrom(src => src.Quantity))
+				.ForMember(dest => dest.Total, opts => opts.MapFrom(src => src.Total))
 				.ForMember(dest => dest.TrolleyId, opts => opts.MapFrom(src => src.PartitionKey))
-				.ForMember(dest => dest.UnitPrice, opts => opts.MapFrom(src => src.UnitPrice ?? 0))
+				.ForMember(dest => dest.UnitPrice, opts => opts.MapFrom(src => src.UnitPrice))
 				.ForAllMembers(a => a.Condition((source, target, sourceValue, targetValue) => sourceValue != null));
 
 			CreateMap<TrolleyProductEntity, TrolleyTableEntity>()

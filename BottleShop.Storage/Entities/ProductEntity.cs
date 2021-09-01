@@ -4,7 +4,7 @@ namespace BottleShop.Storage.Entities
 {
 	public class ProductEntity
 	{
-		public decimal UnitPrice { get; set; }
+		public double UnitPrice { get; set; }
 
 		public List<PromotionEntity> Promotions { get; set; }
 

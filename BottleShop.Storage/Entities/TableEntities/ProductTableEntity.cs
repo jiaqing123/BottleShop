@@ -8,7 +8,7 @@ namespace BottleShop.Storage.Entities
 
 		public string Name { get; set; }
 
-		public decimal UnitPrice { get; set; }
+		public double UnitPrice { get; set; }
 
 		public string Promotions { get; set; }
 	}

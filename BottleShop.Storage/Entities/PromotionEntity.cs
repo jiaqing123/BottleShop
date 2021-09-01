@@ -1,4 +1,6 @@
-﻿namespace BottleShop.Storage.Entities
+﻿using Newtonsoft.Json;
+
+namespace BottleShop.Storage.Entities
 {
 	public class PromotionEntity
 	{
@@ -8,6 +10,7 @@
 
 		public string Name { get; set; }
 
+		[JsonProperty("id")]
 		public string PromotionId { get; set; }
 
 		public string Type { get; set; }

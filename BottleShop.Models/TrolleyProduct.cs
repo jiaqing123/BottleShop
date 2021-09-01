@@ -12,7 +12,7 @@ namespace BottleShop.Models
 		public string Name { get; set; }
 
 		[JsonProperty("unitPrice")]
-		public decimal UnitPrice { get; set; }
+		public double UnitPrice { get; set; }
 
 		[JsonProperty("quantity")]
 		public int Quantity { get; set; }
@@ -21,9 +21,9 @@ namespace BottleShop.Models
 		public List<Promotion> Promotions { get; set; }
 
 		[JsonProperty("total")]
-		public decimal Total { get; set; }
+		public double Total { get; set; }
 
 		[JsonProperty("discountedTotal")]
-		public decimal DiscountedTotal { get; set; }
+		public double DiscountedTotal { get; set; }
 	}
 }

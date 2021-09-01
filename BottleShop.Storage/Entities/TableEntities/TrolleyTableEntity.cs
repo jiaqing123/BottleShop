@@ -29,12 +29,12 @@ namespace BottleShop.Storage.Entities
 		/// <summary>
 		/// For example, unit price of product
 		/// </summary>
-		public decimal? UnitPrice { get; set; }
+		public double UnitPrice { get; set; }
 
 		/// <summary>
 		/// For example, quantity of product
 		/// </summary>
-		public decimal? Quantity { get; set; }
+		public double Quantity { get; set; }
 
 		/// <summary>
 		/// List of serialized PromotionColumnEntity
@@ -44,11 +44,11 @@ namespace BottleShop.Storage.Entities
 		/// <summary>
 		/// Total price
 		/// </summary>
-		public decimal? Total { get; set; }
+		public double Total { get; set; }
 
 		/// <summary>
 		/// Total price after discount
 		/// </summary>
-		public decimal? DiscountedTotal { get; set; }
+		public double DiscountedTotal { get; set; }
 	}
 }

@@ -17,6 +17,6 @@ namespace BottleShop.Models
 		public string Type { get; set; }
 
 		[JsonProperty("discountedAmount")]
-		public decimal? DiscountedAmount { get; set; }
+		public double? DiscountedAmount { get; set; }
 	}
 }

@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Newtonsoft.Json;
 
 namespace BottleShop
 {
@@ -30,6 +31,8 @@ namespace BottleShop
 			});
 
 			RegisterBottleShopServices(services);
+
+			ConfigureJson();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,6 +55,14 @@ namespace BottleShop
 			{
 				endpoints.MapControllers();
 			});
+		}
+
+		private void ConfigureJson()
+		{
+			JsonConvert.DefaultSettings = () => new JsonSerializerSettings
+			{
+				NullValueHandling = NullValueHandling.Ignore
+			};
 		}
 
 		private void RegisterBottleShopServices(IServiceCollection services)

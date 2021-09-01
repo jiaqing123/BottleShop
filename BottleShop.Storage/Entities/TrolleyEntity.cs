@@ -10,9 +10,9 @@ namespace BottleShop.Storage.Entities
 
 		public List<TrolleyPromotionEntity> Promotions { get; set; }
 
-		public decimal Total { get; set; }
+		public double Total { get; set; }
 
-		public decimal DiscountedTotal { get; set; }
+		public double DiscountedTotal { get; set; }
 
 		public string ETag { get; set; }
 

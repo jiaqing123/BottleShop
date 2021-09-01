@@ -24,6 +24,7 @@ namespace BottleShop.Storage
 		public async Task<TrolleyEntity> GetAsync(string trolleyId, string productId)
 		{
 			var rows = await GetRowsAsync(trolleyId, productId);
+			if (rows == null || rows.Count <= 0) return null;
 
 			var entity = MapToEntity(rows);
 
@@ -34,9 +35,9 @@ namespace BottleShop.Storage
 		{
 			var rows = MapToRows(trolleyEntity);
 
-			await UpdateRowsAsync(rows);
+			var resultRows = await UpdateRowsAsync(rows);
 
-			MapToEntity(rows, trolleyEntity);
+			MapToEntity(resultRows, trolleyEntity);
 		}
 
 		#endregion
@@ -148,11 +149,13 @@ namespace BottleShop.Storage
 			}
 		}
 
-		private async Task UpdateRowsAsync(IEnumerable<TrolleyTableEntity> rows)
+		private async Task<List<TrolleyTableEntity>> UpdateRowsAsync(IEnumerable<TrolleyTableEntity> rows)
 		{
 			var tableName = StorageConstants.TABLE_TROLLEY_NAME;
 
-			await _repository.UpdateAsync(tableName, rows);
+			var result = await _repository.UpdateAsync(tableName, rows);
+
+			return result;
 		}
 	}
 }

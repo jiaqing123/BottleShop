@@ -58,27 +58,33 @@ namespace BottleShop.Storage
 
 			var table = client.GetTableReference(tableName);
 
-			var operation = new TableBatchOperation();
+			var partitionBatchGroups = keys
+				.GroupBy(e => e.Item1);
 
-			foreach (var key in keys)
+			foreach (var partitionBatchGrp in partitionBatchGroups)
 			{
-				operation.Retrieve<T>(key.Item1, key.Item2, columns);
+				var operation = new TableBatchOperation();
 
-				if (operation.Count >= StorageConstants.BATCH_SIZE)
+				foreach (var key in partitionBatchGrp)
+				{
+					operation.Retrieve<T>(key.Item1, key.Item2, columns);
+
+					if (operation.Count >= StorageConstants.BATCH_SIZE)
+					{
+						var results = await table.ExecuteBatchAsync(operation);
+
+						rows.AddRange(results.Select(e => e.Result).Cast<T>());
+
+						operation = new TableBatchOperation();
+					}
+				}
+
+				if (operation.Count > 0)
 				{
 					var results = await table.ExecuteBatchAsync(operation);
 
 					rows.AddRange(results.Select(e => e.Result).Cast<T>());
-
-					operation = new TableBatchOperation();
 				}
-			}
-
-			if (operation.Count > 0)
-			{
-				var results = await table.ExecuteBatchAsync(operation);
-
-				rows.AddRange(results.Select(e => e.Result).Cast<T>());
 			}
 
 			return rows;
@@ -106,10 +112,11 @@ namespace BottleShop.Storage
 			}
 		}
 
-		public async Task UpdateAsync(string tableName, IEnumerable<T> rows)
+		public async Task<List<T>> UpdateAsync(string tableName, IEnumerable<T> rows)
 		{
 			var account = GetAccount();
 			var batchSize = StorageConstants.BATCH_SIZE;
+			var resultRows = new List<T>();
 
 			var client = account.CreateCloudTableClient();
 
@@ -140,17 +147,21 @@ namespace BottleShop.Storage
 						}
 						else if (entity.Value.ETag == "*")
 						{
-							operation.Replace(entity.Value);
+							operation.InsertOrReplace(entity.Value);
 						}
 						else
 						{
-							operation.Merge(entity.Value);
+							operation.InsertOrMerge(entity.Value);
 						}
 					}
 
-					await table.ExecuteBatchAsync(operation);
+					var result = await table.ExecuteBatchAsync(operation);
+
+					resultRows.AddRange(result.Select(e => (T)e.Result));
 				}
 			}
+
+			return resultRows;
 		}
 
 		public async Task UpdateAsync(string tableName, T row)

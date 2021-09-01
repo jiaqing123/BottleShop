@@ -18,7 +18,7 @@ namespace BottleShop.Storage
 
 		Task<List<T>> GetRowsAsync(string tableName, List<Tuple<string, string>> keys, List<string> columns = null);
 
-		Task UpdateAsync(string tableName, IEnumerable<T> rows);
+		Task<List<T>> UpdateAsync(string tableName, IEnumerable<T> rows);
 		
 		Task UpdateAsync(string tableName, T row);
 	}

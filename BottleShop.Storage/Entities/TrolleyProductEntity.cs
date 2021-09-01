@@ -1,28 +1,32 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace BottleShop.Storage.Entities
 {
 	public class TrolleyProductEntity
 	{
+		[JsonProperty("trolleyId")]
 		public string TrolleyId { get; set; }
 
+		[JsonProperty("id")]
 		public string ProductId { get; set; }
 
-		public decimal UnitPrice { get; set; }
+		[JsonProperty("unitPrice")]
+		public double? UnitPrice { get; set; }
 
-		public decimal Quantity { get; set; }
+		[JsonProperty("quantity")]
+		public double? Quantity { get; set; }
 
+		[JsonProperty("promotions")]
 		public List<ProductPromotionEntity> Promotions { get; set; }
 
-		public decimal Total { get; set; }
+		[JsonProperty("total")]
+		public double? Total { get; set; }
 
-		public decimal DiscountedTotal { get; set; }
+		[JsonProperty("discountedTotal")]
+		public double? DiscountedTotal { get; set; }
 
+		[JsonProperty("eTag")]
 		public string ETag { get; set; }
-
-		public TrolleyProductEntity()
-		{
-			Promotions = new List<ProductPromotionEntity>();
-		}
 	}
 }

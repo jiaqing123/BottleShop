@@ -12,9 +12,9 @@ namespace BottleShop.Models
 		public List<Promotion> Promotions { get; set; }
 
 		[JsonProperty("total")]
-		public decimal Total { get; set; }
+		public double Total { get; set; }
 
 		[JsonProperty("discountedTotal")]
-		public decimal DiscountedTotal { get; set; }
+		public double DiscountedTotal { get; set; }
 	}
 }

@@ -126,7 +126,7 @@ namespace BottleShop.Services
 
 			trolleyEntity.Products.Add(trolleyProductEntity);
 
-			trolleyEntity.Total += trolleyProductEntity.DiscountedTotal;
+			trolleyEntity.Total += trolleyProductEntity.DiscountedTotal ?? 0;
 
 			await _promotionService.ApplyPromotionAsync(trolleyEntity);
 
@@ -146,7 +146,7 @@ namespace BottleShop.Services
 
 			if (trolleyProductEntity.Quantity > 0)
 			{
-				totals.Total = trolleyProductEntity.UnitPrice * trolleyProductEntity.Quantity;
+				totals.Total = (trolleyProductEntity.UnitPrice * trolleyProductEntity.Quantity) ?? 0;
 
 				await _promotionService.ApplyPromotionAsync(trolleyProductEntity);
 
@@ -238,12 +238,12 @@ namespace BottleShop.Services
 
 		private async Task UpdateProductAsync(TrolleyEntity trolleyEntity, TrolleyProductEntity trolleyProductEntity, Totals productTotals)
 		{
-			trolleyEntity.Total -= trolleyProductEntity.DiscountedTotal;
+			trolleyEntity.Total -= trolleyProductEntity.DiscountedTotal ?? 0;
 
 			trolleyProductEntity.Total = productTotals.Total;
 			trolleyProductEntity.DiscountedTotal = productTotals.DiscountedTotal;
 
-			trolleyEntity.Total += trolleyProductEntity.DiscountedTotal;
+			trolleyEntity.Total += trolleyProductEntity.DiscountedTotal ?? 0;
 
 			await _promotionService.ApplyPromotionAsync(trolleyEntity);
 
@@ -254,8 +254,8 @@ namespace BottleShop.Services
 
 		class Totals
 		{
-			public decimal DiscountedTotal { get; set; }
-			public decimal Total { get; set; }
+			public double DiscountedTotal { get; set; }
+			public double Total { get; set; }
 		}
 	}
 }
