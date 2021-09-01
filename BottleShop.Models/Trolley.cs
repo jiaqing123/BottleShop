@@ -6,6 +6,15 @@ namespace BottleShop.Models
 	public class Trolley
 	{
 		[JsonProperty("products")]
-		public List<Product> Products { get; set; }
+		public List<TrolleyProduct> Products { get; set; }
+
+		[JsonProperty("promotions")]
+		public List<Promotion> Promotions { get; set; }
+
+		[JsonProperty("total")]
+		public decimal Total { get; set; }
+
+		[JsonProperty("discountedTotal")]
+		public decimal DiscountedTotal { get; set; }
 	}
 }

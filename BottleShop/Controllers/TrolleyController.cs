@@ -1,9 +1,6 @@
 ﻿using BottleShop.Models;
 using BottleShop.Services;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace BottleShop.Controllers
@@ -20,13 +17,64 @@ namespace BottleShop.Controllers
 		}
 
 		[HttpGet]
-		public async Task<Trolley> Get()
+		public async Task<IActionResult> Get([FromQuery] TrolleyParameter trolley)
 		{
-			var customerId = string.Empty;
+			if (!ModelState.IsValid)
+			{
+				return BadRequest(ModelState);
+			}
 
-			var result = await _trolleyService.GetCustomerTrolleyAsync(customerId);
+			// use not found exception
+			var result = await _trolleyService.GetTrolleyAsync(trolley.TrolleyId);
 
-			return result;
+			if (result == null)
+			{
+				return NotFound();
+			}
+			else
+			{
+				return Ok(result);
+			}
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> IncreaseProductQuantity([FromQuery] TrolleyParameter trolley, [FromBody] ProductQuantityParameter productQuantity)
+		{
+			if (!ModelState.IsValid)
+			{
+				return BadRequest(ModelState);
+			}
+
+			var result = await _trolleyService.IncreaseProductQuantityAsync(trolley.CustomerId, trolley.TrolleyId, productQuantity.ProductId, productQuantity.Quantity);
+
+			if (result == null)
+			{
+				return NotFound();
+			}
+			else
+			{
+				return Ok();
+			}
+		}
+
+		[HttpPut]
+		public async Task<IActionResult> ReduceProductQuantity([FromQuery] TrolleyParameter trolleyQuery, [FromBody] ProductQuantityParameter productQuantity)
+		{
+			if (!ModelState.IsValid)
+			{
+				return BadRequest(ModelState);
+			}
+
+			var result = await _trolleyService.DecreaseProductQuantityAsync(trolleyQuery.CustomerId, trolleyQuery.TrolleyId, productQuantity.ProductId, productQuantity.Quantity);
+
+			if (result == null)
+			{
+				return NotFound();
+			}
+			else
+			{
+				return Ok(result);
+			}
 		}
 	}
 }

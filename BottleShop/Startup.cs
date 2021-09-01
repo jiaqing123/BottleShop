@@ -3,17 +3,10 @@ using BottleShop.Storage;
 using BottleShop.Storage.Entities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace BottleShop
 {
@@ -63,10 +56,22 @@ namespace BottleShop
 
 		private void RegisterBottleShopServices(IServiceCollection services)
 		{
-			services.AddAutoMapper(typeof(StorageMapperProfile));
+			services.AddAutoMapper(typeof(ServiceMapperProfile), typeof(StorageMapperProfile));
 
-			services.AddScoped<IRepository<TrolleyEntity>, DocumentRepository<TrolleyEntity>>();
+			services.AddSingleton(new StorageConfiguration()
+			{
+				ConnectionString = Configuration.GetConnectionString("AzureStorage"),
+			});
 
+			services.AddScoped<ITableRepository<ProductTableEntity>, TableRepository<ProductTableEntity>>();
+			services.AddScoped<ITableRepository<PromotionTableEntity>, TableRepository<PromotionTableEntity>>();
+			services.AddScoped<ITableRepository<TrolleyTableEntity>, TableRepository<TrolleyTableEntity>>();
+
+			services.AddScoped<IProductRepository, ProductTableRepository>();
+			services.AddScoped<IPromotionRepository, PromotionTableRepository>();
+			services.AddScoped<ITrolleyRepository, TrolleyTableRepository>();
+
+			services.AddScoped<IPromotionService, PromotionService>();
 			services.AddScoped<ITrolleyService, TrolleyService>();
 		}
 	}

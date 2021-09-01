@@ -1,19 +1,19 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace BottleShop.Storage.Entities
 {
 	public class ProductEntity
 	{
-		[JsonProperty("id")]
-		public int Id { get; set; }
+		public decimal UnitPrice { get; set; }
 
-		[JsonProperty("name")]
+		public List<PromotionEntity> Promotions { get; set; }
+
+		public string CategoryId { get; set; }
+
+		public string ETag { get; set; }
+
 		public string Name { get; set; }
 
-		[JsonProperty("price")]
-		public decimal Price { get; set; }
+		public string ProductId { get; set; }
 	}
 }
