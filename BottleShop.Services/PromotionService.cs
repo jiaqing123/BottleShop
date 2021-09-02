@@ -13,19 +13,21 @@ namespace BottleShop.Services
 			await _trolleyPromotionService.ApplyPromotionsAsync(trolleyEntity);
 		}
 
-		public Task ApplyPromotionAsync(TrolleyProductEntity trolleyProductEntity)
+		public async Task ApplyPromotionAsync(TrolleyProductEntity trolleyProductEntity)
 		{
-			return Task.CompletedTask;
+			await _productPromotionService.ApplyPromotionsAsync(trolleyProductEntity);
 		}
 
 		#endregion
 
 		private readonly IMapper _mapper;
+		private readonly IProductPromotionService _productPromotionService;
 		private readonly ITrolleyPromotionService _trolleyPromotionService;
 
-		public PromotionService(IMapper mapper, ITrolleyPromotionService trolleyPromotionService)
+		public PromotionService(IMapper mapper, IProductPromotionService productPromotionService, ITrolleyPromotionService trolleyPromotionService)
 		{
 			_mapper = mapper;
+			_productPromotionService = productPromotionService;
 			_trolleyPromotionService = trolleyPromotionService;
 		}
 	}

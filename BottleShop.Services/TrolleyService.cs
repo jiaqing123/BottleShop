@@ -157,6 +157,9 @@ namespace BottleShop.Services
 			else
 			{
 				totals.Total = 0;
+
+				await _promotionService.ApplyPromotionAsync(trolleyProductEntity);
+
 				totals.DiscountedTotal = 0;
 			}
 

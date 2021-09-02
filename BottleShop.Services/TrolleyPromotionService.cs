@@ -1,9 +1,7 @@
 ﻿using BottleShop.Storage;
 using BottleShop.Storage.Entities;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace BottleShop.Services
@@ -25,7 +23,7 @@ namespace BottleShop.Services
 				var promotion = promotions.FirstOrDefault(e => e.PromotionId == trolleyPromotionEntity.PromotionId);
 				if (promotion == null) return;
 
-				if (ApplySpendMoreAndSave(promotion, trolleyEntity, trolleyPromotionEntity)) continue;
+				if (ApplySpendMoreAndSave(promotion, trolleyEntity, trolleyPromotionEntity) != null) continue;
 
 				// additional application
 			}
@@ -40,9 +38,9 @@ namespace BottleShop.Services
 			_promotionRepository = promotionRepository;
 		}
 
-		private bool ApplySpendMoreAndSave(PromotionEntity promotion, TrolleyEntity trolleyEntity, TrolleyPromotionEntity trolleyPromotionEntity)
+		private bool? ApplySpendMoreAndSave(PromotionEntity promotion, TrolleyEntity trolleyEntity, TrolleyPromotionEntity trolleyPromotionEntity)
 		{
-			if (promotion.Method != PromotionConstants.METHOD_SPEND_MORE_AND_SAVE) return false;
+			if (promotion.Method != PromotionConstants.METHOD_SPEND_MORE_AND_SAVE) return null;
 
 			var count = Math.Floor(trolleyEntity.Total / promotion.BoundaryQuantity);
 
