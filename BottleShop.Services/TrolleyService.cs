@@ -15,8 +15,6 @@ namespace BottleShop.Services
 
 		public async Task<Trolley> DecreaseProductQuantityAsync(string customerId, string trolleyId, string productId, int quantity)
 		{
-			if (quantity <= 0) throw new ArgumentOutOfRangeException(nameof(quantity));
-
 			var trolleyEntity = await _trolleyRepository.GetAsync(trolleyId, productId);
 			if (trolleyEntity == null) return null;
 
@@ -53,8 +51,6 @@ namespace BottleShop.Services
 
 		public async Task<Trolley> IncreaseProductQuantityAsync(string customerId, string trolleyId, string productId, int quantity)
 		{
-			if (quantity <= 0) throw new ArgumentOutOfRangeException(nameof(quantity));
-
 			// get product from trolley
 			var trolleyEntity = await _trolleyRepository.GetAsync(trolleyId, productId);
 			if (trolleyEntity == null) return null;
