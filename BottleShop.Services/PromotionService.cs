@@ -1,7 +1,5 @@
 ﻿using AutoMapper;
-using BottleShop.Storage;
 using BottleShop.Storage.Entities;
-using System;
 using System.Threading.Tasks;
 
 namespace BottleShop.Services
@@ -10,9 +8,9 @@ namespace BottleShop.Services
 	{
 		#region IPromotionService Members
 
-		public Task ApplyPromotionAsync(TrolleyEntity trolleyEntity)
+		public async Task ApplyPromotionAsync(TrolleyEntity trolleyEntity)
 		{
-			return Task.CompletedTask;
+			await _trolleyPromotionService.ApplyPromotionsAsync(trolleyEntity);
 		}
 
 		public Task ApplyPromotionAsync(TrolleyProductEntity trolleyProductEntity)
@@ -23,12 +21,12 @@ namespace BottleShop.Services
 		#endregion
 
 		private readonly IMapper _mapper;
-		private readonly IPromotionRepository _promotionRepository;
+		private readonly ITrolleyPromotionService _trolleyPromotionService;
 
-		public PromotionService(IMapper mapper, IPromotionRepository promotionRepository)
+		public PromotionService(IMapper mapper, ITrolleyPromotionService trolleyPromotionService)
 		{
 			_mapper = mapper;
-			_promotionRepository = promotionRepository;
+			_trolleyPromotionService = trolleyPromotionService;
 		}
 	}
 }

@@ -82,6 +82,7 @@ namespace BottleShop
 			services.AddScoped<IPromotionRepository, PromotionTableRepository>();
 			services.AddScoped<ITrolleyRepository, TrolleyTableRepository>();
 
+			services.AddScoped<ITrolleyPromotionService, TrolleyPromotionService>();
 			services.AddScoped<IPromotionService, PromotionService>();
 			services.AddScoped<ITrolleyService, TrolleyService>();
 		}

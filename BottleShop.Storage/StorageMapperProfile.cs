@@ -70,18 +70,26 @@ namespace BottleShop.Storage
 			#region PromotionTableEntity - PromotionEntity
 
 			CreateMap<PromotionTableEntity, PromotionEntity>()
+				.ForMember(dest => dest.BoundaryQuantity, opts => opts.MapFrom(src => src.BoundaryQuantity))
+				.ForMember(dest => dest.ChangeQuantity, opts => opts.MapFrom(src => src.ChangeQuantity))
 				.ForMember(dest => dest.Definition, opts => opts.MapFrom(src => src.Definition))
 				.ForMember(dest => dest.ETag, opts => opts.MapFrom(src => src.ETag))
+				.ForMember(dest => dest.Method, opts => opts.MapFrom(src => src.Method))
 				.ForMember(dest => dest.Name, opts => opts.MapFrom(src => src.Name))
 				.ForMember(dest => dest.PromotionId, opts => opts.MapFrom(src => src.PartitionKey))
+				.ForMember(dest => dest.RepeatCount, opts => opts.MapFrom(src => src.RepeatCount))
 				.ForMember(dest => dest.Type, opts => opts.MapFrom(src => src.Type))
 				.ForAllMembers(a => a.Condition((source, target, sourceValue, targetValue) => sourceValue != null));
 
 			CreateMap<PromotionEntity, PromotionTableEntity>()
+				.ForMember(dest => dest.BoundaryQuantity, opts => opts.MapFrom(src => src.BoundaryQuantity))
+				.ForMember(dest => dest.ChangeQuantity, opts => opts.MapFrom(src => src.ChangeQuantity))
 				.ForMember(dest => dest.Definition, opts => opts.MapFrom(src => src.Definition))
 				.ForMember(dest => dest.ETag, opts => opts.MapFrom(src => src.ETag))
-				.ForMember(dest => dest.PartitionKey, opts => opts.MapFrom(src => src.PromotionId))
+				.ForMember(dest => dest.Method, opts => opts.MapFrom(src => src.Method))
 				.ForMember(dest => dest.Name, opts => opts.MapFrom(src => src.Name))
+				.ForMember(dest => dest.PartitionKey, opts => opts.MapFrom(src => src.PromotionId))
+				.ForMember(dest => dest.RepeatCount, opts => opts.MapFrom(src => src.RepeatCount))
 				.ForMember(dest => dest.RowKey, opts => opts.MapFrom(src => StorageConstants.ROW_KEY_BASIC))
 				.ForMember(dest => dest.Timestamp, opts => opts.Ignore())
 				.ForMember(dest => dest.Type, opts => opts.MapFrom(src => src.Type))
